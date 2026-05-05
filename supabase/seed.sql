@@ -1,0 +1,10 @@
+-- Optional development seed notes:
+-- Create the demo users in Supabase Auth first, then insert matching profile rows
+-- with the resulting auth.users IDs.
+--
+-- Demo Organisation: org@example.com / password123
+-- Demo Trainer: trainer@example.com / password123
+-- Demo Admin: admin@example.com / password123
+--
+-- Stage 1 ships rich local mock data in constants/sampleData.ts. Supabase seed
+-- rows should mirror that data once auth user IDs exist.
