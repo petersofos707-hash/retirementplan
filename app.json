@@ -1,0 +1,15 @@
+{
+  "expo": {
+    "name": "Verified Staffing POC",
+    "slug": "verified-staffing-poc",
+    "scheme": "verifiedstaffingpoc",
+    "version": "0.1.0",
+    "orientation": "portrait",
+    "userInterfaceStyle": "light",
+    "assetBundlePatterns": ["**/*"],
+    "ios": { "supportsTablet": false },
+    "android": { "adaptiveIcon": { "backgroundColor": "#0B1F3A" } },
+    "plugins": ["expo-router"],
+    "experiments": { "typedRoutes": true }
+  }
+}
