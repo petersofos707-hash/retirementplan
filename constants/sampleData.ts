@@ -127,6 +127,30 @@ export const sampleData: MarketplaceData = {
     {
       id: "cred-4",
       trainerId: "trainer-2",
+      type: "first_aid",
+      displayName: "First Aid Certificate",
+      status: "verified",
+      expiryDate: "2027-01-30"
+    },
+    {
+      id: "cred-5",
+      trainerId: "trainer-2",
+      type: "cpr",
+      displayName: "CPR Certificate",
+      status: "verified",
+      expiryDate: "2026-10-18"
+    },
+    {
+      id: "cred-6",
+      trainerId: "trainer-2",
+      type: "sports_trainer",
+      displayName: "Sports Trainer Level 1",
+      status: "verified",
+      expiryDate: "2027-05-05"
+    },
+    {
+      id: "cred-7",
+      trainerId: "trainer-2",
       type: "wwcc",
       displayName: "Working With Children Check",
       status: "pending",

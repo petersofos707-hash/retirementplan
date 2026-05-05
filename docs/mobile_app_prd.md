@@ -4,6 +4,21 @@
 
 Project working title: Verified Staffing Marketplace App Business name: To be decided Founders: Three physiotherapy students Document purpose: Product requirements document and Codex build prompt Build stage: Supabase-backed proof of concept / early MVP with local demo fallback Primary market: Sporting organisations needing verified sports trainers Long-term market: Broader sport, allied health, and healthcare staffing Last updated: 2 May 2026. Build-readiness update incorporated: Supabase-first implementation, local demo fallback, interactive core booking/rating/verification flow.
 
+## Current Build Slice: Stage 2A
+
+Stage 2A prioritises a polished interactive local demo flow while keeping Supabase configured for auth and schema context. Marketplace state mutations persist through AsyncStorage/local state in this slice.
+
+Interactive in Stage 2A:
+
+- Organisation creates a shift with trainer pay, 15% platform fee, and total organisation cost.
+- Trainer browses open/application-received shifts and applies if verified.
+- Organisation reviews applications, accepts exactly one trainer, automatically declines competing pending applications, and creates a booking.
+- Admin approves/rejects pending credentials and updates trainer verification state.
+- Organisation marks a booking completed, rates the trainer, and updates trainer rating/reliability display.
+- Admin dashboard shows marketplace health metrics and can reset local demo data.
+
+Still out of scope for Stage 2A: payment processing, payouts, real credential API checks, push notifications, in-app messaging, maps/routing, advanced reliability algorithms, dispute resolution, multi-worker shift allocation, and app-store deployment.
+
 ## 1.1 1. Executive Summary
 
 This project is a mobile-first proof-of-concept application for a verified, on-demand staffing marketplace. The app connects sporting organisations that need short-term staff coverage with qualified and verified sports trainers who want flexible paid work.

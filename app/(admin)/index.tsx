@@ -1,7 +1,8 @@
-import { Redirect } from "expo-router";
+import { router, Redirect } from "expo-router";
 import { StyleSheet, Text, View } from "react-native";
 
 import { InfoCard } from "../../components/InfoCard";
+import { MetricTile } from "../../components/MetricTile";
 import { PrimaryButton } from "../../components/PrimaryButton";
 import { Screen } from "../../components/Screen";
 import { StatusBadge } from "../../components/StatusBadge";
@@ -30,42 +31,41 @@ export default function AdminHome() {
       <View style={styles.header}>
         <StatusBadge label={dataMode === "supabase" ? "Supabase mode" : "Local demo mode"} />
         <Text style={styles.title}>Admin dashboard</Text>
-        <Text style={styles.subtitle}>Marketplace health from seeded data. Live verification actions arrive in Stage 2.</Text>
+        <Text style={styles.subtitle}>Review credentials, watch booking activity, and reset the local demo state between walkthroughs.</Text>
       </View>
 
       <View style={styles.grid}>
-        <Metric label="Organisations" value={String(data.organisations.length)} />
-        <Metric label="Trainers" value={String(data.trainers.length)} />
-        <Metric label="Verified trainers" value={String(verifiedTrainers)} />
-        <Metric label="Open shifts" value={String(openShifts)} />
-        <Metric label="Booked shifts" value={String(bookedShifts)} />
-        <Metric label="Completed shifts" value={String(completedShifts)} />
+        <MetricTile label="Organisations" value={String(data.organisations.length)} />
+        <MetricTile label="Trainers" value={String(data.trainers.length)} />
+        <MetricTile label="Verified" value={String(verifiedTrainers)} />
+        <MetricTile label="Open shifts" value={String(openShifts)} />
+        <MetricTile label="Booked" value={String(bookedShifts)} />
+        <MetricTile label="Completed" value={String(completedShifts)} />
       </View>
 
       <InfoCard title="Platform revenue" subtitle={`${formatCurrency(platformRevenue)} from completed seeded bookings.`} />
 
       <InfoCard title="Pending manual verification">
-        {data.credentials
-          .filter((credential) => credential.status === "pending")
-          .map((credential) => (
-            <Text key={credential.id} style={styles.note}>
-              {credential.displayName} requires admin review.
-            </Text>
-          ))}
+        {data.credentials.filter((credential) => credential.status === "pending").length === 0 ? (
+          <Text style={styles.note}>No pending credentials. Reset demo data to replay the admin flow.</Text>
+        ) : (
+          data.credentials
+            .filter((credential) => credential.status === "pending")
+            .map((credential) => {
+              const trainer = data.trainers.find((item) => item.id === credential.trainerId);
+              return (
+                <Text key={credential.id} style={styles.note}>
+                  {trainer?.fullName ?? "Trainer"}: {credential.displayName} requires review.
+                </Text>
+              );
+            })
+        )}
       </InfoCard>
 
+      <PrimaryButton label="Open verification queue" onPress={() => router.push("/(admin)/verification")} />
       <PrimaryButton label="Reset local demo data" variant="secondary" onPress={resetDemoData} />
       <PrimaryButton label="Log out" variant="secondary" onPress={signOut} />
     </Screen>
-  );
-}
-
-function Metric({ label, value }: { label: string; value: string }) {
-  return (
-    <View style={styles.metric}>
-      <Text style={styles.metricValue}>{value}</Text>
-      <Text style={styles.metricLabel}>{label}</Text>
-    </View>
   );
 }
 
@@ -88,24 +88,6 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     flexWrap: "wrap",
     gap: 12
-  },
-  metric: {
-    width: "47%",
-    borderColor: colors.border,
-    borderRadius: 8,
-    borderWidth: 1,
-    backgroundColor: colors.surface,
-    padding: 14
-  },
-  metricValue: {
-    color: colors.primary,
-    fontSize: 22,
-    fontWeight: "900"
-  },
-  metricLabel: {
-    color: colors.muted,
-    fontSize: 13,
-    fontWeight: "700"
   },
   note: {
     color: colors.muted,
